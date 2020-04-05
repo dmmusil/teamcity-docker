@@ -1,9 +1,9 @@
 terraform {
   backend "azure" {
     storage_account_name = "dmusiltfbe"
-    container_name = "teamcity"
-    resource_group_name = "dev"
-    key = "tc.tfstate"
+    container_name       = "teamcity"
+    resource_group_name  = "dev"
+    key                  = "tc.tfstate"
   }
 }
 provider "azurerm" {
@@ -47,20 +47,20 @@ resource "azurerm_app_service" "teamcity_server_app" {
   resource_group_name = azurerm_resource_group.teamcity_rg.name
   site_config {
     linux_fx_version = "DOCKER|jetbrains/teamcity-server"
-    always_on = true
+    always_on        = true
   }
   app_settings = {
-    "WEBSITES_PORT"="8111"
-    "WEBSITES_ENABLE_APP_SERVICE_STORAGE"=false
-    "DOCKER_REGISTRY_SERVER_URL"="https://index.docker.io"
-    "TEAMCITY_DATA_PATH"="/teamcity-data"
+    "WEBSITES_PORT"                       = "8111"
+    "WEBSITES_ENABLE_APP_SERVICE_STORAGE" = false
+    "DOCKER_REGISTRY_SERVER_URL"          = "https://index.docker.io"
+    "TEAMCITY_DATA_PATH"                  = "/teamcity-data"
   }
   storage_account {
-    access_key = azurerm_storage_account.teamcity_sa.primary_access_key
+    access_key   = azurerm_storage_account.teamcity_sa.primary_access_key
     account_name = azurerm_storage_account.teamcity_sa.name
-    name = "teamcity-data"
-    share_name = azurerm_storage_share.teamcity_data.name
-    type = "AzureFiles"
-    mount_path = "/teamcity-data"
+    name         = "teamcity-data"
+    share_name   = azurerm_storage_share.teamcity_data.name
+    type         = "AzureFiles"
+    mount_path   = "/teamcity-data"
   }
 }
