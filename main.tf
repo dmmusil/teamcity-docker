@@ -1,3 +1,11 @@
+terraform {
+  backend "azure" {
+    storage_account_name = "dmusiltfbe"
+    container_name = "teamcity"
+    resource_group_name = "dev"
+    key = "tc.tfstate"
+  }
+}
 provider "azurerm" {
   features {}
 }
